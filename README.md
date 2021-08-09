@@ -1,11 +1,11 @@
 Born2beRoot
 ===========
 
-## 목표
+## <목표>
 
 >VirtualBox을 이용해 나만의 규칙을 적용한 operating system 을 만드는것
 
-## 개념 정리
+## <개념 정리>
 
 ### Virtual Box 란?
 
@@ -19,7 +19,8 @@ Born2beRoot
 
 ### APPArmor는 무엇인가?
 
-## Check List
+
+## <Check List>
 
 ### 1)Setup
 
@@ -32,6 +33,7 @@ Born2beRoot
   * - systemctl status ssh
 * Check the OS
   * - hostnamectl
+
 
 ### 2)User
 
@@ -53,6 +55,7 @@ Born2beRoot
   * - groupadd evaluating
 * Advantage and Disadvantage of Password policy
 
+
 ### 3)Hostname and Partitiions
 
 * Check Hostname
@@ -62,6 +65,7 @@ Born2beRoot
 * Check partioning status
   * - lsblk
 
+
 ### 4)Sudo
 
 * Check sudo installed
@@ -70,4 +74,32 @@ Born2beRoot
   * - sudo usermod -aG sudo 새로운사용자명
 * "/var/log/sudo" Check
 
+
 ### 5)UFW
+
+* Check UFW installed and woring
+ * - sudo ufw status verbose
+* UFW rules
+ * - sudo ufw status numbered
+* Add UFW rules
+ * - sudo vim /etc/ssh/sshd_config -> Port 8080
+ * - sudo ufw allow 8080
+* Delete
+ * - sudo ufw status numbered
+ * - sudo ufw delete 규칙번호
+
+
+### 6)SSH
+
+* Check SSH installed and woring
+ * - apt search openssh-server
+ * - systemctl status ssh
+* Access as new user at terminal
+
+
+### 7)Script monitering
+
+https://velog.io/@taeskim/cron
+
+
+### 8)Bonus
