@@ -175,8 +175,19 @@ lsblk
 ```{.bash}
 dpkg -l sudo
 ```
-* Add new user in sudo group
-  * - sudo usermod -aG sudo 새로운사용자명
+* Install sudo
+```{.bash}
+apt-get install sudo
+```
+* Add new user in primary group
+```{.bash}
+useradd (user) -g (group)
+```
+* Add new user in secondary group
+```{.bash}
+usermod -aG (group1),(group2) (user)"
+```
+> https://m.blog.naver.com/wideeyed/221512008307
 * "/var/log/sudo" Check
 
 
