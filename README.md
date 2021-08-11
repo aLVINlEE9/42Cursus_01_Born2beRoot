@@ -60,11 +60,17 @@ Born2beRoot
 * Connect the user not root
 * Password should be ruled as subject it saids (->2)User)
 * Check that the UFW service is working (->5)UFW)
-  * - sudo ufw status verbose
+```{.bash}
+sudo ufw status verbose 
+```
 * Check that the SSH service is working (->6)SSH)
-  * - systemctl status ssh
+```{.bash}
+systemctl status ssh
+```
 * Check the OS
-  * - hostnamectl
+```{.bash}
+hostnamectl
+```
 
 <br>
 
@@ -72,6 +78,8 @@ Born2beRoot
 
 * Check current user group status
   * - id 사용자명
+
+
 #### password policy
 > - (1)비밀번호는 30 일마다 만료되어야합니다.
 
@@ -79,13 +87,13 @@ Born2beRoot
 
 > - (3)사용자는 암호가 만료되기 7 일 전에 경고 메시지를 받아야합니다.
 
-> - 비밀번호는 10 자 이상이어야합니다. 대문자와 숫자를 포함해야합니다. 또한 3 개 이상의 연속 된 동일한 문자를 포함 할 수 없습니다.
+> - (4)비밀번호는 10 자 이상이어야합니다. 대문자와 숫자를 포함해야합니다. 또한 3 개 이상의 연속 된 동일한 문자를 포함 할 수 없습니다.
 
-> - 암호에는 사용자 이름이 포함되지 않아야합니다.
+> - (5)암호에는 사용자 이름이 포함되지 않아야합니다.
 
-> - 다음 규칙은 루트 비밀번호에 적용되지 않습니다. 비밀번호는
+> - (6)다음 규칙은 루트 비밀번호에 적용되지 않습니다.
 
-> - 이전 비밀번호의 일부가 아닌 최소 7 자.
+> - (7)비밀번호는 이전 비밀번호의 일부가 아닌 최소 7 자.
 
 #### password policy 변경법
 * set password complexity (1 ~ 3)
@@ -96,39 +104,77 @@ Born2beRoot
 
  > https://www.linuxtechi.com/enforce-password-policies-linux-ubuntu-centos/
 
-* Password policy
-  * - sudo vi /etc/pam.d/common-password
-  * retry=3 : 암호 입력 3회까지
-  * minlen=10 : 암호 최소 길이는 10
-  * difok=7 : 기존 패스워드와 달라야하는 문자 수는 7
-  * ucredit=-1 : 대문자 한 개 이상
-  * lcredit=-1 : 소문자 한 개 이상
-  * dcredit=-1 : 숫자 한 개 이상
-  * reject_username : username이 그대로 또는 뒤집혀서 새 패스워드에 들어있는지 검사하고, 들어있으면 거부
-  * enforce_for_root : root 사용자가 패스워드를 바꾸려고 하는 경우에도 위의 조건들 적용
+<br>
+
+* set password complexity (4 ~ 7)
+```{.bash}
+sudo apt install libpam-pwquality
+ ```
+ > PAM module to check password strength
+<br>
+
+```{.bash}
+sudo vi /etc/pam.d/common-password
+ ```
+ 
+ > (변경) retry=3 : 암호 입력 3회까지
+
+ > minlen=10 : 암호 최소 길이는 10
+
+ > difok=7 : 기존 패스워드와 달라야하는 문자 수는 7
+
+ > ucredit=-1 : 대문자 한 개 이상
+
+ > lcredit=-1 : 소문자 한 개 이상
+
+ > dcredit=-1 : 숫자 한 개 이상
+
+ > reject_username : username이 그대로 또는 뒤집혀서 새 패스워드에 들어있는지 검사하고, 들어있으면 거부
+
+ > enforce_for_root : root 사용자가 패스워드를 바꾸려고 하는 경우에도 위의 조건들 적용
+<br>
+
+```{.bash}
+passwd -e 사용자명
+ ```
+ > root계정과 현존하는 사용자 계정의 암호 변경을 강제한다. 다음 번 로그인시에 암호를 변경하라고 뜨게 된다.
 
 
 * Add User
-  * - adduser 사용자명
+```{.bash}
+adduser 사용자명
+```
 * Create group 'evaluating'
-  * - groupadd evaluating
+```{.bash}
+groupadd evaluating
+```
 * Advantage and Disadvantage of Password policy
 
+<br>
 
 ### 3)Hostname and Partitiions
 
 * Check Hostname
-  * - hostnamectl
+```{.bash}
+hostnamectl
+```
 * Change Hostname
-  * - sudo hostnamectl set-hostname 바꾸려는호스트명
+```{.bash}
+sudo hostnamectl set-hostname 바꾸려는호스트명
+```
 * Check partioning status
-  * - lsblk
+```{.bash}
+lsblk
+```
 
+<br>
 
 ### 4)Sudo
 
 * Check sudo installed
-  * - dpkg -l sudo
+```{.bash}
+dpkg -l sudo
+```
 * Add new user in sudo group
   * - sudo usermod -aG sudo 새로운사용자명
 * "/var/log/sudo" Check
