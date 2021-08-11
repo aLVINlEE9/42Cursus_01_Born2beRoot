@@ -486,3 +486,10 @@ printf " cmd\n"
 
 
 ### 8)Bonus
+
+* lighttpd, MariaDB 및 PHP 서비스를 사용하여 기능적인 WordPress 웹 사이트를 설정합니다.
+
+워드프레스를 설치하려면 PHP를 사용할 수 있는 웹서버와 데이터베이스 서버가 필요하다.
+- web server : lighttpd
+- database : MariaDB
+> https://nostressdev.tistory.com/10
