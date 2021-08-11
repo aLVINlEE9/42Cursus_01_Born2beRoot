@@ -63,10 +63,15 @@ Born2beRoot
 ```{.bash}
 sudo ufw status verbose 
 ```
+<br>
+
 * Check that the SSH service is working (->6)SSH)
 ```{.bash}
 systemctl status ssh
 ```
+<br>
+
+
 * Check the OS
 ```{.bash}
 hostnamectl
@@ -144,6 +149,8 @@ passwd -e 사용자명
 ```{.bash}
 adduser 사용자명
 ```
+<br>
+
 * Create group 'evaluating'
 ```{.bash}
 groupadd evaluating
@@ -158,10 +165,14 @@ groupadd evaluating
 ```{.bash}
 hostnamectl
 ```
+<br>
+
 * Change Hostname
 ```{.bash}
 sudo hostnamectl set-hostname 바꾸려는호스트명
 ```
+<br>
+
 * Check partioning status
 ```{.bash}
 lsblk
@@ -175,6 +186,8 @@ lsblk
 ```{.bash}
 dpkg -l sudo
 ```
+<br>
+
 * Install sudo
 ```{.bash}
 apt-get install sudo
@@ -185,10 +198,14 @@ apt-get install sudo
 ```{.bash}
 useradd (user) -g (group)
 ```
+<br>
+
 * Add new user in secondary group
 ```{.bash}
 usermod -aG (group1),(group2) (user)"
 ```
+<br>
+
 * Check groups
 ```{.bash}
 cat /etc/group
@@ -201,6 +218,8 @@ cat /etc/group
 ```{.bash}
 sudo deluser 사용자명 그룹명
 ```
+<br>
+
 * Delete user
 ```{.bash}
 sudo userdel -r 사용자명
@@ -211,6 +230,7 @@ sudo userdel -r 사용자명
 ```{.bash}
 sudo mkdir /var/log/sudo/
 ```
+<br>
 
 *  '/etc/sudoers'파일을 수정
 ```{.bash}
@@ -240,27 +260,38 @@ sudo visudo
 ```{.bash}
 sudo apt install ufw
 ```
+<br>
 
 * Check UFW installed
 ```{.bash}
 sudo ufw status verbose
 ```
+<br>
+
 * 부팅 시 ufw 활성화되게 설정
 ```{.bash}
 sudo ufw enable
 ```
+<br>
+
 * 기본 incoming deny로 설정
 ```{.bash}
 sudo ufw default deny
 ```
+<br>
+
 * ssh연결 허용(4242라는 커스텀 포트 사용하는 경우)
 ```{.bash}
 sudo ufw allow 4242
 ```
+<br>
+
 * UFW rules list
 ```{.bash}
 sudo ufw status numbered
 ``` 
+<br>
+
 * Delete UFW rule
 ```{.bash}
 sudo ufw delete 규칙번호
@@ -274,30 +305,59 @@ sudo ufw delete 규칙번호
 ```{.bash}
 apt search openssh-server
 ```
+<br>
+
 * Install SSH
 ```{.bash}
 apt install openssh-server
 ```
+<br>
+
 * openssh 실행 여부와 사용 포트
 ```{.bash}
 systemctl status ssh
 ```
+<br>
+
+* SSH Port 설정 보기
+```{.bash}
+ss -tunlp
+```
+<br>
+
 * 4242port 허용
 ```{.bash}
 sudo ufw allow 4242
 ```
+<br>
+
 * SSH 설정 변경
 ```{.bash}
 sudo vim /etc/ssh/sshd_config
 ```
+<br>
+
 * 재시작 및 적용
 ```{.bash}
 sudo systemctl restart ssh
 ```
 
-#### VM에서 포트포워딩 설정
-* Access as new user at terminal
+#### VM에서 포트포워딩 설정(Access as new user at terminal)
 
+* 설정 > 네트워크 > 고급 > 포트포워딩
+<img width="682" alt="스크린샷 2021-08-11 오후 12 55 03" src="https://user-images.githubusercontent.com/74805318/128967692-047b71f9-467d-4877-99c7-1f25ffada5fd.png">
+
+* 호스트 IP : 접속 컴퓨터 ip, host port 2424, 게스트 IP : 10.0.2.15, guest port: 4242
+![D174C4BD-193C-47A2-9A61-AFC348C71A26 2](https://user-images.githubusercontent.com/74805318/128968029-c1f1641a-5025-45b3-ae00-f3ffb11992b8.jpg)
+
+* 연결
+
+```{.bash}
+ssh seungsle@192.000.000.000 -p 2424
+```
+> ssh <계정 이름>@<서버 주소> -p 포트번호
+
+ 
 
 ### 7)Script monitering
 
