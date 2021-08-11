@@ -179,6 +179,8 @@ dpkg -l sudo
 ```{.bash}
 apt-get install sudo
 ```
+
+#### Group
 * Add new user in primary group
 ```{.bash}
 useradd (user) -g (group)
@@ -187,7 +189,47 @@ useradd (user) -g (group)
 ```{.bash}
 usermod -aG (group1),(group2) (user)"
 ```
+* Check groups
+```{.bash}
+cat /etc/group
+```
+> 사용자명:사용자비밀번호:사용자번호:PrimaryGroup번호::Home디렉토리: <br>
 > https://m.blog.naver.com/wideeyed/221512008307
+
+
+* Delete user from group
+```{.bash}
+sudo deluser 사용자명 그룹명
+```
+* Delete user
+```{.bash}
+sudo userdel -r 사용자명
+```
+
+#### Sudoer file setting
+* 로그 파일을 저장할 경로 생성
+```{.bash}
+sudo mkdir /var/log/sudo/
+```
+
+*  '/etc/sudoers'파일을 수정
+```{.bash}
+sudo visudo
+```
+> (변경)  Defaults secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin <br> sudo 만의 환경변수 설정
+
+
+> Defaults    authfail_message="Authentication attempt failed." <br> 권한 획득 실패시 띄울 커스텀 메세지
+
+> Defaults    badpass_message="Wrong password!" <br> 암호 실패시 띄울 메세지
+
+> Defaults    log_input <br> sudo를 통해 입력된 input은 로그에 기록된다.
+
+> Defaults    log_output <br> sudo를 통해 입력된 output은 로그에 기록된다.
+ 
+> Defaults    requiretty <br> tty에 연결되지 않은 채로 sudo를 실행하는 것을 금지? ex. 쉘 스크립트 상에서 sudo 커맨드 수행 금지.
+
+> Defaults    iolog_dir="/var/log/sudo/" <br> 로그를 저장할 경로.
 * "/var/log/sudo" Check
 
 
