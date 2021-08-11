@@ -492,4 +492,7 @@ printf " cmd\n"
 워드프레스를 설치하려면 PHP를 사용할 수 있는 웹서버와 데이터베이스 서버가 필요하다.
 - web server : lighttpd
 - database : MariaDB
+* 웹 서버, CGI, FastCGI - PHP를 사용하는 이유?
 > https://nostressdev.tistory.com/10
+
+https://nostressdev.tistory.com/11
