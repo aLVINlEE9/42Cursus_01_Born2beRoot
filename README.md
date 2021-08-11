@@ -378,13 +378,12 @@ service ssh restart
 ```
 <br>
 
-#### 특정 계정에 su 획득 권한 부여
+#### 특정 계정에 su (루트) 획득 권한 부여
 ```{.bash}
 vi /etc/pam.d/su
 ```
-<br>
-
 > (변경) auth required pam_wheel.so
+<br>
 
 * 루트 권한 가진 그룹 'wheel'생성
 ```{.bash}
@@ -401,7 +400,89 @@ adduser 사용자명 wheel
 
 ### 7)Script monitering
 
-https://velog.io/@taeskim/cron
+
+* 이를 /monitoring.sh로 작성하고 "chmod +x /monitoring.sh"을 통해 실행 권한 부여.
+
+* 그 후 /monitoring.sh | wall하면 모든 사용자에게 스크립트 출력 내용이 띄워지게 된다.
+
+*  마지막으로 "sudo crontab -e"를 통해 root 계정의 crontab 스케쥴러를 열고 난 후 "*/10 * * * *    /monitoring.sh | wall"을 입력하여 매 10분마다 root권한에서 "/monitoring.sh | wall"이 실행되도록 한다. 
+
+```{.bash}
+#!/bin/bash
+
+printf "#Architecture: "
+uname -a
+
+printf "#CPU physical : "
+nproc --all
+
+printf "#vCPU : "
+cat /proc/cpuinfo | grep processor | wc -l
+
+printf "#Memory Usage: "
+free -m | grep Mem | awk '{printf"%d/%dMB (%.2f%%)\n", $3, $2, $3/$2 * 100}'
+
+printf "#Disk Usage: "
+df -BM -a | grep /dev/mapper/ | awk '{sum+=$3}END{print sum}' | tr -d '\n'
+printf "/"
+df -BM -a | grep /dev/mapper/ | awk '{sum+=$2}END{print sum}' | tr -d '\n'
+printf "MB ("
+df -BM -a | grep /dev/mapper/ | awk '{sum1+=$3 ; sum2+=$2 }END{printf "%d", sum1 / sum2 * 100}' | tr -d '\n'
+printf "%%)\n"
+
+printf "#CPU load: "
+mpstat | grep all | awk '{printf "%.2f%%\n", 100-$13}'
+
+printf "#Last boot: "
+who -b | sed 's/ system boot //g'
+#(주석) 'system boot'앞 뒤로 적절한 갯수의 스페이스 집어넣었음
+
+printf "#LVM use: "
+if [ "$(lvscan | grep -i ACTIVE | wc -l)" -gt 0 ] ; then printf "yes\n" ; else printf "no\n" ; fi
+
+printf "#Connections TCP : "
+ss -t | grep -i ESTAB | wc -l | tr -d '\n'
+printf " ESTABLISHED\n"
+
+printf "#User log: "
+who | wc -l
+
+printf "#Network: IP "
+/sbin/ifconfig | grep broadcast | sed 's/inet//g' | sed 's/netmask.*//g' | sed 's/ //g' | tr -d '\n'
+printf " ("
+/sbin/ifconfig | grep 'ether ' | sed 's/.*ether //g' | sed 's/ .*//g' | tr -d '\n'
+printf ")\n"
+
+printf "#Sudo : "
+grep 'sudo:' /var/log/auth.log | grep 'COMMAND=' | wc -l | tr -d '\n'
+printf " cmd\n"
+```
+
+> os의 아키텍쳐와 커널 버전 : "uname -a"를 통해 출력
+
+> the number of physical processors : "nproc --all"을 통해 설치된 프로세서의 갯수를 출력
+
+> the number of virtual processors : "cat /proc/cpuinfo | grep processor | wc -l"을 통해 가상 프로세서(vCPU)의 갯수를 출력
+
+> the available RAM on your server and its utilization rate as a percentage : "free -m | grep Mem | awk '{printf "%d/%dMB (%.2f%%)", ＄3, ＄2, ＄3/＄2 * 100}'"
+
+> the available memory on your server and its utilitzation rate as a percentage : "df -BM -a | grep /dev/mapper"
+
+> the utilization rate of your processors as a percentage : "sudo apt-get install sysstat" && "mpstat | grep all | awk '{printf "%.2f%%", 100-$13}'"
+
+> the date and time of the last reboot : "who -b | sed 's/ system boot //g'"
+
+> Whether LVM is active or not : if [ "＄(lvscan | grep -i ACTIVE | wc -l)" -gt 0 ] ; then echo "yes" ; else echo "no" ; fi
+
+> The number of active connections. : "ss -t | grep -i ESTAB | wc -l"하면 현재 established tcp 연결 수 출력
+
+> The number of users using the server. : "who | wc -l"
+
+> The IPv4 address of your server and its MAC (Media Access Control) address. : IPv4는 "/sbin/ifconfig | grep broadcast | sed 's/inet//g' | sed 's/netmask.*//g' | sed 's/ /g' "를 통해 추출 가능. MAC은 "/sbin/ifconfig | grep 'ether ' | sed 's/.*ether //g' | sed 's/ .*//g' "을 통해 추출 가능
+
+> The number of commands executed with the sudo program. : "grep 'sudo:' /var/log/auth.log | grep 'COMMAND=' | wc -l"을 통해 출력 가능
+
+> https://velog.io/@taeskim/cron
 
 
 ### 8)Bonus
