@@ -345,9 +345,11 @@ sudo systemctl restart ssh
 #### VM에서 포트포워딩 설정(Access as new user at terminal)
 
 * 설정 > 네트워크 > 고급 > 포트포워딩
+
 <img width="682" alt="스크린샷 2021-08-11 오후 12 55 03" src="https://user-images.githubusercontent.com/74805318/128967692-047b71f9-467d-4877-99c7-1f25ffada5fd.png">
 
 * 호스트 IP : 접속 컴퓨터 ip, host port 2424, 게스트 IP : 10.0.2.15, guest port: 4242
+
 ![D174C4BD-193C-47A2-9A61-AFC348C71A26 2](https://user-images.githubusercontent.com/74805318/128968029-c1f1641a-5025-45b3-ae00-f3ffb11992b8.jpg)
 
 * 연결
@@ -357,7 +359,45 @@ ssh seungsle@192.000.000.000 -p 2424
 ```
 > ssh <계정 이름>@<서버 주소> -p 포트번호
 
- 
+#### ssh 접속 root 계정 제한 방법
+* ssh 설정 파일
+```{.bash}
+vi /etc/ssh/sshd_config
+```
+<br>
+
+* no로 변경
+```{.bash}
+PermitRootLogin no
+```
+<br>
+
+* 저장후 ssh 다시시작
+```{.bash}
+service ssh restart
+```
+<br>
+
+#### 특정 계정에 su 획득 권한 부여
+```{.bash}
+vi /etc/pam.d/su
+```
+<br>
+
+> (변경) auth required pam_wheel.so
+
+* 루트 권한 가진 그룹 'wheel'생성
+```{.bash}
+addgroup --system wheel
+```
+<br>
+
+* 특정 사용자를 wheel그룹에 넣음으로써 su 권한 부여
+```{.bash}
+adduser 사용자명 wheel
+```
+> https://wiki.debian.org/WHEEL/PAM
+
 
 ### 7)Script monitering
 
