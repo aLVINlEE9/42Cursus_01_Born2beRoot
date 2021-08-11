@@ -230,28 +230,72 @@ sudo visudo
 > Defaults    requiretty <br> tty에 연결되지 않은 채로 sudo를 실행하는 것을 금지? ex. 쉘 스크립트 상에서 sudo 커맨드 수행 금지.
 
 > Defaults    iolog_dir="/var/log/sudo/" <br> 로그를 저장할 경로.
+
 * "/var/log/sudo" Check
 
 
 ### 5)UFW
 
-* Check UFW installed and woring
- * - sudo ufw status verbose
-* UFW rules
- * - sudo ufw status numbered
-* Add UFW rules
- * - sudo vim /etc/ssh/sshd_config -> Port 8080
- * - sudo ufw allow 8080
-* Delete
- * - sudo ufw status numbered
- * - sudo ufw delete 규칙번호
+* Install UFW
+```{.bash}
+sudo apt install ufw
+```
+
+* Check UFW installed
+```{.bash}
+sudo ufw status verbose
+```
+* 부팅 시 ufw 활성화되게 설정
+```{.bash}
+sudo ufw enable
+```
+* 기본 incoming deny로 설정
+```{.bash}
+sudo ufw default deny
+```
+* ssh연결 허용(4242라는 커스텀 포트 사용하는 경우)
+```{.bash}
+sudo ufw allow 4242
+```
+* UFW rules list
+```{.bash}
+sudo ufw status numbered
+``` 
+* Delete UFW rule
+```{.bash}
+sudo ufw delete 규칙번호
+```
 
 
 ### 6)SSH
 
-* Check SSH installed and woring
- * - apt search openssh-server
- * - systemctl status ssh
+#### SSH 설정
+* Check SSH installed
+```{.bash}
+apt search openssh-server
+```
+* Install SSH
+```{.bash}
+apt install openssh-server
+```
+* openssh 실행 여부와 사용 포트
+```{.bash}
+systemctl status ssh
+```
+* 4242port 허용
+```{.bash}
+sudo ufw allow 4242
+```
+* SSH 설정 변경
+```{.bash}
+sudo vim /etc/ssh/sshd_config
+```
+* 재시작 및 적용
+```{.bash}
+sudo systemctl restart ssh
+```
+
+#### VM에서 포트포워딩 설정
 * Access as new user at terminal
 
 
