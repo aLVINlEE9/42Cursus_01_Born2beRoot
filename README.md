@@ -56,23 +56,23 @@ Born2beRoot
  
 ### 1)Setup
 
-* Ensure that the machine does not have a graphical environment at launch
-* Connect the user not root
-* Password should be ruled as subject it saids (->2)User)
-* Check that the UFW service is working (->5)UFW)
+* 그래픽환경에서 동작하지 않는 것을 확인 (Ensure that the machine does not have a graphical environment at launch)
+* root가 아닌 사용자로 login (Connect the user not root)
+* password를 활용해서 machine에 로그인. (Password should be ruled as subject it saids) (->2)User)
+* UFW가 동작해야함 (Check that the UFW service is working) (->5)UFW)
 ```{.bash}
 sudo ufw status verbose 
 ```
 <br>
 
-* Check that the SSH service is working (->6)SSH)
+* SSH service가 동작해야함 (Check that the SSH service is working) (->6)SSH)
 ```{.bash}
 systemctl status ssh
 ```
 <br>
 
 
-* Check the OS
+* 선택한 OS가 무엇인지 확인해야함. (Check the OS)
 ```{.bash}
 hostnamectl
 ```
@@ -81,11 +81,11 @@ hostnamectl
 
 ### 2)User
 
-* Check current user group status
+* 현재 사용자의 group status를 확인하기 (Check current user group status)
   * - id 사용자명
 
 
-#### password policy
+#### 비밀번호 정책 (password policy)
 > - (1)비밀번호는 30 일마다 만료되어야합니다.
 
 > - (2)비밀번호 수정 전까지 허용되는 최소 일수는 2로 설정됩니다.
@@ -111,7 +111,7 @@ hostnamectl
 
 <br>
 
-* set password complexity (4 ~ 7)
+* (비밀번호 정책 변경) set password complexity (4 ~ 7)
 ```{.bash}
 sudo apt install libpam-pwquality
  ```
@@ -145,38 +145,42 @@ passwd -e 사용자명
  > root계정과 현존하는 사용자 계정의 암호 변경을 강제한다. 다음 번 로그인시에 암호를 변경하라고 뜨게 된다.
 
 
-* Add User
+* 새로운 사용자 추가하기 (Add User)
 ```{.bash}
 adduser 사용자명
 ```
 <br>
 
-* Create group 'evaluating'
+* evaluating이라는 그룹 만들기 (Create group 'evaluating')
 ```{.bash}
 groupadd evaluating
 ```
-* Advantage and Disadvantage of Password policy
+* password 정책의 장단점 (Advantage and Disadvantage of Password policy)
 
 <br>
 
 ### 3)Hostname and Partitiions
 
-* Check Hostname
+* hostname 확인하기 (Check Hostname)
 ```{.bash}
 hostnamectl
 ```
 <br>
 
-* Change Hostname
+* hostanem 변경하기 (Change Hostname)
 ```{.bash}
 sudo hostnamectl set-hostname 바꾸려는호스트명
 ```
 <br>
 
-* Check partioning status
+* 파티셔닝 상태 확인하기 (Check partioning status)
 ```{.bash}
 lsblk
 ```
+* LVM이 무엇인가?
+> Logical(논리적인) Volume(공간을) Manager(만들게 해주는{관리 해주는} 프로그램)입니다.
+
+> https://wiseworld.tistory.com/32
 
 <br>
 
