@@ -200,7 +200,7 @@ apt-get install sudo
 #### Group
 * Add new user in primary group
 ```{.bash}
-useradd (user) -g (group)
+usermod (user) -g (group)
 ```
 <br>
 
