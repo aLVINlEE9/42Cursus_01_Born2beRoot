@@ -382,23 +382,6 @@ service ssh restart
 ```
 <br>
 
-#### 특정 계정에 su (루트) 획득 권한 부여
-```{.bash}
-vi /etc/pam.d/su
-```
-> (변경) auth required pam_wheel.so
-<br>
-
-* 루트 권한 가진 그룹 'wheel'생성
-```{.bash}
-addgroup --system wheel
-```
-<br>
-
-* 특정 사용자를 wheel그룹에 넣음으로써 su 권한 부여
-```{.bash}
-adduser 사용자명 wheel
-```
 > https://wiki.debian.org/WHEEL/PAM
 
 
