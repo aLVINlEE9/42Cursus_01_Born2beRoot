@@ -382,8 +382,6 @@ service ssh restart
 ```
 <br>
 
-> https://wiki.debian.org/WHEEL/PAM
-
 
 ### 7)Script monitering
 
