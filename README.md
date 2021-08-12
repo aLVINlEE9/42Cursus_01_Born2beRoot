@@ -495,4 +495,4 @@ printf " cmd\n"
 * 웹 서버, CGI, FastCGI - PHP를 사용하는 이유?
 > https://nostressdev.tistory.com/10
 
-https://nostressdev.tistory.com/11
+> https://nostressdev.tistory.com/11
