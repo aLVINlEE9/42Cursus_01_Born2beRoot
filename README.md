@@ -348,16 +348,6 @@ sudo ufw allow 4242
 ```
 <br>
 
-* SSH 설정 변경
-```{.bash}
-sudo vim /etc/ssh/sshd_config
-```
-<br>
-
-* 재시작 및 적용
-```{.bash}
-sudo systemctl restart ssh
-```
 
 #### VM에서 포트포워딩 설정(Access as new user at terminal)
 
