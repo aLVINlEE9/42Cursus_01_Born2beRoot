@@ -393,7 +393,6 @@ service ssh restart
 
 * 그 후 /monitoring.sh | wall하면 모든 사용자에게 스크립트 출력 내용이 띄워지게 된다.
 
-*  마지막으로 "sudo crontab -e"를 통해 root 계정의 crontab 스케쥴러를 열고 난 후 "*/10 * * * *    /monitoring.sh | wall"을 입력하여 매 10분마다 root권한에서 "/monitoring.sh | wall"이 실행되도록 한다. 
 
 ```{.bash}
 #!/bin/bash
@@ -470,8 +469,15 @@ printf " cmd\n"
 
 > The number of commands executed with the sudo program. : "grep 'sudo:' /var/log/auth.log | grep 'COMMAND=' | wc -l"을 통해 출력 가능
 
-> https://velog.io/@taeskim/cron
+* Cron이란?
 
+> 유닉스 계열 컴퓨터 운영체제의 시간 기반 잡 스케줄러이다. 소프트웨어 환경을 설정하고 관리하는 사람들은 작업을 고정된 시간, 날짜 간격에 주기적으로 실행할 수 있도록 스케줄링하기 위해 cron을 사용한다.
+
+> "sudo crontab -e"를 통해 root 계정의 crontab 스케쥴러를 열고 난 후 "*/10 * * * *    /monitoring.sh | wall"을 입력하여 매 10분마다 root권한에서 "/monitoring.sh | wall"이 실행되도록 한다. 
+
+> https://jdm.kr/blog/2
+
+> https://velog.io/@taeskim/cron
 
 ### 8)Bonus
 
