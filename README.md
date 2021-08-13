@@ -67,14 +67,14 @@ sudo ufw status verbose
 
 * SSH service가 동작해야함 (Check that the SSH service is working) (->6)SSH)
 ```{.bash}
-systemctl status ssh
+sudo systemctl status ssh
 ```
 <br>
 
 
 * 선택한 OS가 무엇인지 확인해야함. (Check the OS)
 ```{.bash}
-hostnamectl
+sudo hostnamectl
 ```
 
 <br>
@@ -96,9 +96,7 @@ hostnamectl
 
 > - (5)암호에는 사용자 이름이 포함되지 않아야합니다.
 
-> - (6)다음 규칙은 루트 비밀번호에 적용되지 않습니다.
-
-> - (7)비밀번호는 이전 비밀번호의 일부가 아닌 최소 7 자.
+> - (6)다음 규칙은 루트 비밀번호에 적용되지 않습니다. : 비밀번호는 이전 비밀번호의 일부가 아닌 최소 7 자.
 
 #### password policy 변경법
 * set password complexity (1 ~ 3)
@@ -111,7 +109,7 @@ hostnamectl
 
 <br>
 
-* (비밀번호 정책 변경) set password complexity (4 ~ 7)
+* (비밀번호 정책 변경) set password complexity (4 ~ 6)
 ```{.bash}
 sudo apt install libpam-pwquality
  ```
@@ -140,20 +138,20 @@ sudo vi /etc/pam.d/common-password
 <br>
 
 ```{.bash}
-passwd -e 사용자명
+sudo passwd -e 사용자명
  ```
  > root계정과 현존하는 사용자 계정의 암호 변경을 강제한다. 다음 번 로그인시에 암호를 변경하라고 뜨게 된다.
 
 
 * 새로운 사용자 추가하기 (Add User)
 ```{.bash}
-adduser 사용자명
+sudo adduser 사용자명
 ```
 <br>
 
 * evaluating이라는 그룹 만들기 (Create group 'evaluating')
 ```{.bash}
-groupadd evaluating
+sudo groupadd evaluating
 ```
 * password 정책의 장단점 (Advantage and Disadvantage of Password policy)
 
@@ -163,7 +161,7 @@ groupadd evaluating
 
 * hostname 확인하기 (Check Hostname)
 ```{.bash}
-hostnamectl
+sudo hostnamectl
 ```
 <br>
 
