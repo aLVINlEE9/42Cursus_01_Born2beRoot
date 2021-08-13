@@ -413,20 +413,20 @@ free -m | grep Mem | awk '{printf"%d/%dMB (%.2f%%)\n", $3, $2, $3/$2 * 100}'
 printf "#Disk Usage: "
 df -BM -a | grep /dev/mapper/ | awk '{sum+=$3}END{print sum}' | tr -d '\n'
 printf "/"
-df -BM -a | grep /dev/mapper/ | awk '{sum+=$2}END{print sum}' | tr -d '\n'
-printf "MB ("
+df -BG -a | grep /dev/mapper/ | awk '{sum+=$2}END{print sum}' | tr -d '\n'
+printf "GB ("
 df -BM -a | grep /dev/mapper/ | awk '{sum1+=$3 ; sum2+=$2 }END{printf "%d", sum1 / sum2 * 100}' | tr -d '\n'
 printf "%%)\n"
 
 printf "#CPU load: "
-mpstat | grep all | awk '{printf "%.2f%%\n", 100-$13}'
+mpstat | grep all | awk '{printf "%.1f%%\n", 100-$13}'
 
 printf "#Last boot: "
 who -b | sed 's/ system boot //g'
 #(주석) 'system boot'앞 뒤로 적절한 갯수의 스페이스 집어넣었음
 
 printf "#LVM use: "
-if [ "$(lvscan | grep -i ACTIVE | wc -l)" -gt 0 ] ; then printf "yes\n" ; else printf "no\n" ; fi
+if [ "$(sudo lvscan | grep -i ACTIVE | wc -l)" -gt 0 ] ; then printf "yes\n" ; else printf "no\n" ; fi
 
 printf "#Connections TCP : "
 ss -t | grep -i ESTAB | wc -l | tr -d '\n'
