@@ -55,6 +55,7 @@ Born2beRoot
 ## <체크리스트>
  
 ### 1)Setup
+> https://velog.io/@appti/born2beroot-Virtualbox-Debian-설치
 
 * 그래픽환경에서 동작하지 않는 것을 확인 (Ensure that the machine does not have a graphical environment at launch)
 * root가 아닌 사용자로 login (Connect the user not root)
