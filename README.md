@@ -282,6 +282,13 @@ sudo ufw default deny
 ```
 <br>
 
+* UFW 란?
+
+> UFW(Uncomplicated Firewall,언컴플리케이티드 방화벽)는 데비안 계열 및 다양한 리눅스 환경에서 작동되는 사용하기 쉬운 방화벽 관리 프로그램이다.
+
+> https://ko.wikipedia.org/wiki/UFW
+
+
 * ssh연결 허용(4242라는 커스텀 포트 사용하는 경우)
 ```{.bash}
 sudo ufw allow 4242
